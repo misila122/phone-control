@@ -13,6 +13,9 @@
 - 做一个 **Agent Skill**：`SKILL.md` 是给 Agent 看的技能说明书，`scripts/phone.py` 是唯一要被执行的脚本；
 - 做一个**独立命令行工具**：不接任何模型，直接在终端里用（本文所有例子都是这个形态）。
 
+> **只想把技能装进去？** 去 [Releases](https://github.com/misila122/phone-control/releases/latest)
+> 下载 `phone-control-*.zip`，解压到 skills 目录即可，**不用 clone 整个仓库**。
+
 ![一次 see 的效果：左边原始截图，右边带编号的标注图](assets/demo.png)
 
 > 上图是**合成示意图**（`tools/make_demo_image.py` 画出来的假界面，标注图由脚本里真正的
@@ -151,6 +154,8 @@ phone-control/
 
 - **Claude Code / 兼容 Agent Skills 的客户端**：把整个目录放到 `~/.claude/skills/phone-control/`
   （或项目里的 `.claude/skills/phone-control/`），技能会被自动发现。
+- **不想 clone**：去 [Releases](https://github.com/misila122/phone-control/releases/latest)
+  下 `phone-control-*.zip`，解压出来的 `phone-control/` 直接放进 skills 目录。
 - **豆包工作客户端**：放进它的 `.user_skills/` 目录（Windows 上一般在
   `…\Doubao\User Data\Default\.doubao\agent_mode\workspace\.user_skills\`）—— 这个项目最初就是从那里长出来的。
 - **其它 Agent**：没有 skill 机制也行。把 `SKILL.md` 的内容作为系统提示附加，告诉它
