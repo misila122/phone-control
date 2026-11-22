@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<!-- 空控件树样本：真机上「刚启动 / 正在播视频 / 游戏界面」dump 出来就是这样。 -->
+<hierarchy rotation="0">
+</hierarchy>
