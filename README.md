@@ -1,5 +1,7 @@
 # phone-control
 
+**简体中文** ｜ [English](README.en.md)
+
 [![CI](https://github.com/misila122/phone-control/actions/workflows/ci.yml/badge.svg)](https://github.com/misila122/phone-control/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.9%2B-3776ab.svg)](https://www.python.org/)
@@ -213,7 +215,8 @@ python scripts/phone.py ime status      # 核对装没装、当前输入法是�
 ```
 phone-control/
 ├─ SKILL.md                    技能说明书：循环、命令速查、硬性规则、故障表
-├─ README.md                   本文件（给人看的）
+├─ README.md                   本文件（中文，权威版本）
+├─ README.en.md                英文版
 ├─ LICENSE                     MIT
 ├─ scripts/
 │  └─ phone.py                 唯一的执行入口（约 1000 行，纯标准库；Pillow 可选）
