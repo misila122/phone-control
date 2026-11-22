@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.9", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: 语法检查
+        run: python -m py_compile scripts/phone.py
+
+      - name: 离线测试（不需要手机，不需要 adb）
+        run: python -m unittest discover -s tests -v
+
+      - name: CLI 冒烟（没有 adb 也应当可用）
+        run: |
+          python scripts/phone.py --help
+          python scripts/phone.py parse tests/fixtures/ui_sample.xml
+          python scripts/phone.py parse tests/fixtures/ui_empty.xml
