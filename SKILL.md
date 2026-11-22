@@ -92,7 +92,7 @@ python scripts/phone.py see
 - 纯 ASCII 走 `input text`；
 - 中文/表情/符号走 ADBKeyboard 的 base64 广播（自动 enable → set → 输入 → 切回原输入法）。
 
-首次需要中文时若报错「需要 ADBKeyboard」，跑 `python scripts/phone.py ime install`（走 `ghfast.top` 镜像，国内可用）；下载不到就手动把 `ADBKeyboard.apk` 传到手机装上，再重试。装好后 `ime status` 可核对。**输入前必须先 tap 到输入框**，让它拿到焦点；脚本会自动把焦点抢回来并 dump 校验输入结果，看到 `WARN` 就说明没写进去。
+首次需要中文时若报错「需要 ADBKeyboard」，跑 `python scripts/phone.py ime install`（优先 `ghfast.top` 镜像加速，属**第三方源、非官方**；介意来源就手动从上游仓库下 APK 再用 `--local` 装）；下载不到就手动把 `ADBKeyboard.apk` 传到手机装上，再重试。装好后 `ime status` 可核对。**输入前必须先 tap 到输入框**，让它拿到焦点；脚本会自动把焦点抢回来并 dump 校验输入结果，看到 `WARN` 就说明没写进去。
 
 ## 5. 常见故障
 

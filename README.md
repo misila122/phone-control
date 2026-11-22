@@ -175,6 +175,7 @@ phone-control/
 
 > ⚠️ 自动化操作第三方 App **可能违反其用户协议**（尤其签到、刷量类），有封号风险。
 > 默认建议用小号 / 自己的设备试；本项目的安全规则只是减少误操作，不构成对合规性的保证。
+> 更完整的用途限制、责任划分和第三方组件说明见[第十四节](#十四免责声明与使用风险)。
 
 ---
 
@@ -189,7 +190,7 @@ phone-control/
 首次用到中文时如果报「需要 ADBKeyboard」，跑：
 
 ```bash
-python scripts/phone.py ime install     # 默认走 ghfast.top 镜像，国内可用
+python scripts/phone.py ime install     # 默认走 ghfast.top 镜像（第三方加速，非官方源），国内可用
 python scripts/phone.py ime status      # 核对装没装、当前输入法是谁
 ```
 
@@ -225,7 +226,7 @@ phone-control/
 │  └─ fixtures/                ui_sample.xml（12 个控件的样本）、ui_empty.xml
 ├─ assets/
 │  └─ demo.png                 README 头图（合成示意图）
-└─ .github/workflows/ci.yml    Ubuntu + Windows × Python 3.9/3.12
+└─ .github/workflows/ci.yml    Ubuntu + Windows，Python 3.9–3.13
 ```
 
 `examples/`、`assets/` 是生成物：**别手改**，改 `tools/make_demo_image.py` 后重新跑一次。
@@ -319,7 +320,9 @@ CI（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)）在 Ubuntu 和 Win
 - 截图、控件树、标注图**只写到本机临时目录**（默认 `%TEMP%/phone-control/<serial>`），
   脚本**不上传任何内容**，也没有任何遥测。
 - 唯一的网络动作是 `ime install` 下载 ADBKeyboard 的 APK（先试 `ghfast.top` 镜像，
-  失败再试 GitHub 官方地址）；其它命令全是本机 `adb` 调用。
+  失败再试 GitHub 官方地址）；其它命令全是本机 `adb` 调用。**`ghfast.top` 是第三方镜像、
+  不是官方来源**；在意来源就用 `ime install --local <你自己从官方仓库下载的 apk>`，
+  或手动装好再跑 `ime status` 核对。
 - `.gitignore` 已经挡掉了所有快照产物；**别把工作目录或截图提交进仓库** ——
   那等于公开你的聊天、余额、地址。
 - 如果你把手机借给别人用 ADB，记得关掉「USB 调试」和「无线调试」。
@@ -356,15 +359,51 @@ CI（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)）在 Ubuntu 和 Win
 
 ---
 
-## 十四、许可
+## 十四、免责声明与使用风险
 
-[MIT](LICENSE)。拿去改、拿去卖、拿去塞进你自己的 Agent 里都行，保留版权声明即可。
+> 这不是法律意见，只是把风险讲清楚。
 
-第三方组件各自算各自的：ADBKeyboard 见其仓库许可，platform-tools 是 Apache-2.0。
+1. **用途限制**：本项目仅供在**自己拥有或有权使用**的设备上做个人自动化与测试。禁止用于
+   刷量、养号、作弊、批量注册、诈骗、侵犯他人隐私等违反法律法规或平台规则的行为。
+2. **第三方 App 的规则由它们自己定**：用自动化方式操作微信、抖音、12306、高德等 App
+   **可能违反其用户协议**，轻则功能受限、重则封号。是否使用、后果自负。
+3. **操作风险**：ADB 调试权限很高，脚本会模拟点击和输入。误点、误删、误发消息、误付款的
+   风险由使用者承担；涉及钱、消息、删除、发布、账号的动作请务必人工确认（`SKILL.md` 里
+   也是硬规则）。
+4. **数据与隐私**：脚本不收集、不上传任何数据；截图和控件树只写到本机临时目录。这些文件里
+   有你的屏幕内容，请自行保护，不要提交到仓库或发给不可信的人。
+5. **按现状提供（AS IS）**：不提供任何明示或暗示担保（可用性、适配性、无缺陷）；在适用法律
+   允许的范围内，作者不对因使用本项目产生的直接或间接损失负责（MIT 许可证里已有同样的
+   免责条款，这里用中文再说一遍）。
+6. **无隶属关系**：本项目是个人独立项目，与 OPPO、Google/Android、字节跳动/豆包、B 站
+   以及文档里提到的各 App 厂商均无隶属或背书关系。
+
+### 第三方组件与商标
+
+| 组件 | 许可证 | 本项目怎么用 |
+|---|---|---|
+| [ADBKeyboard](https://github.com/senzhk/ADBKeyBoard)（可选） | **GPL-2.0** | **不打包、不修改**；只有 `ime install` 时才下载并装到手机上。若你要把 APK 打包分发，请自行遵守 GPL-2.0（提供对应源码） |
+| Android platform-tools（adb） | Apache-2.0 | 运行时调用，不打包 |
+| [Pillow](https://python-pillow.org/)（可选） | MIT-CMU | 只用于生成编号标注图和开发工具，不打包 |
+| 各 App 名称 / 包名 | 商标归各自权利人 | 文档中仅用于识别与兼容性说明（指示性使用），未使用任何图标或界面素材，不代表关联或背书 |
+
+`references/apps.md` 里的包名是事实性的标识符，不是复制它们的代码或界面；`examples/` 与
+`assets/demo.png` 里是**画的假界面**（包名 `com.example.train`），未使用任何真实 App 的
+截图、图标或素材。
 
 ---
 
-## 十五、还能做什么
+## 十五、许可
+
+[MIT](LICENSE)。拿去改、拿去卖、拿去塞进你自己的 Agent 里都行，保留版权声明即可。
+
+第三方组件各自算各自的：[ADBKeyboard](https://github.com/senzhk/ADBKeyBoard) 是 **GPL-2.0**
+（本仓库不打包、不修改，只在 `ime install` 时按需下载，所以 MIT 部分不受影响）；
+platform-tools 是 Apache-2.0；Pillow 是 MIT-CMU。
+
+---
+
+## 十六、还能做什么
 
 - **录制回放**：把一次跑通的 `tapnode / text` 序列录成 DSL，重复任务直接回放，
   只把「判断和异常」留给模型（稳定步骤每次重新推理，纯浪费 token）。

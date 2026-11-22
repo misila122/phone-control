@@ -789,6 +789,9 @@ def cmd_ime(args, serial, wd):
     apk = args.local or os.path.join(wd, "ADBKeyboard.apk")
     ok = bool(args.local)
     if not ok:
+        print("提示：ADBKeyboard 是上游项目（GPL-2.0），本仓库不打包它；下面只是帮你下载。")
+        print("      默认先走第三方镜像 ghfast.top 加速，它不是官方来源；介意来源就用")
+        print("      --local 装你自己从官方仓库 https://github.com/senzhk/ADBKeyBoard 下的 APK。")
         urls = [
             "https://ghfast.top/https://github.com/senzhk/ADBKeyBoard/raw/master/ADBKeyboard.apk",
             "https://github.com/senzhk/ADBKeyBoard/raw/master/ADBKeyboard.apk",
@@ -806,7 +809,7 @@ def cmd_ime(args, serial, wd):
     if not ok:
         die("自动下载失败（网络或地址变动）。手动下载 ADBKeyboard.apk 放进 %s，然后重新跑：python phone.py ime install --local <apk路径>" % wd)
     adb(["install", "-r", apk], serial=serial, timeout=120)
-    print("已安装 ADBKeyboard。输入中文时会自动临时切换，用完切回原输入法。")
+    print("已安装 ADBKeyboard（上游 GPL-2.0 项目，非本项目所有）。输入中文时会自动临时切换，用完切回原输入法。")
 
 
 def cmd_intent(args, serial, wd):
