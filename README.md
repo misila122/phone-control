@@ -297,9 +297,9 @@ python tools/make_demo_image.py
 python -m py_compile scripts/phone.py
 ```
 
-CI（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)）跑
-`ubuntu-latest × windows-latest` 与 `Python 3.9 / 3.12` 四种组合：语法检查、离线测试、
-以及「没有 adb 时 CLI 也能用」的冒烟。**真机动作（点击/输入/启动）没法在 CI 里测**，
+CI（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)）在 Ubuntu 和 Windows 上覆盖 Python 3.9–3.13
+（3.9 只放在 Windows 跑 —— `ubuntu-latest` 已经是 Ubuntu 26.04，GitHub 不再提供 3.9 的预编译包）：
+语法检查、离线测试，以及「没有 adb 时 CLI 也能用」的冒烟。**真机动作（点击/输入/启动）没法在 CI 里测**，
 那部分靠接上手机跑 `python scripts/phone.py selftest`。
 
 `scripts/phone.py` 内部分区很清楚，加命令时照着改：
